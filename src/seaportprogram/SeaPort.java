@@ -27,8 +27,11 @@ public class SeaPort extends Thing {
     
     public String toString(SeaPort port){
         StringBuilder sb = new StringBuilder();
-        sb = name;
-        return 
+        sb.append(name + " ");
+        sb.append(index + " ");
+        sb.append(parent);
+        String result = sb.toString();
+        return result;
     }
     
 }

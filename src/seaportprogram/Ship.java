@@ -14,6 +14,24 @@ import java.util.ArrayList;
 public class Ship extends Thing {
     PortTime arrivalTime = new PortTime();
     PortTime dockTime = new PortTime();
-    double draft, lenght, weight, width;
+    double draft, length, weight, width;
     ArrayList<Job> jobs;
+    
+    public Ship(){
+        
+    }
+    
+    public Ship(String shipName, int shipIndex, int shipParent, 
+            double shipWeight, double shipLength, double shipWidth, 
+            double shipDraft){
+        name = shipName;
+        index = shipIndex;
+        parent = shipParent;
+        weight = shipWeight;
+        length = shipLength;
+        width = shipWidth;
+        draft = shipDraft;
+    }
+    
+    
 }
