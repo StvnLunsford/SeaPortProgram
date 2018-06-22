@@ -12,9 +12,23 @@ import java.util.ArrayList;
  * @author SLunsford
  */
 public class SeaPort extends Thing {
+    String name;
+    int index, parent;
     ArrayList<Dock> docks;
     ArrayList<Ship> que;
     ArrayList<Ship> ships;
     ArrayList<Person> persons;
+    
+    public SeaPort(String newName, int newIndex, int newParent){
+        name = newName;
+        index = newIndex;
+        parent = newParent;    
+    }
+    
+    public String toString(SeaPort port){
+        StringBuilder sb = new StringBuilder();
+        sb = name;
+        return 
+    }
     
 }
