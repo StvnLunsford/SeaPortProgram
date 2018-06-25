@@ -5,6 +5,8 @@
  */
 package seaportprogram;
 
+import java.util.Scanner;
+
 /**
  *
  * @author SLunsford
@@ -12,10 +14,8 @@ package seaportprogram;
 public class Dock extends Thing {
     Ship ship;
     
-    public Dock(String newName, int newIndex, int newParent){
-        name = newName;
-        index = newIndex;
-        parent = newParent;    
+    public Dock(Scanner sc){
+        super(sc);   
     }
     
     public String toString(Dock dock){

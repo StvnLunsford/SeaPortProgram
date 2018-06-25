@@ -6,6 +6,7 @@
 package seaportprogram;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -19,10 +20,8 @@ public class SeaPort extends Thing {
     ArrayList<Ship> ships;
     ArrayList<Person> persons;
     
-    public SeaPort(String newName, int newIndex, int newParent){
-        name = newName;
-        index = newIndex;
-        parent = newParent;    
+    public SeaPort(Scanner sc){
+        super(sc);   
     }
     
     public String toString(SeaPort port){

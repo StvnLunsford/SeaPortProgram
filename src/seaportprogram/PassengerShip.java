@@ -5,6 +5,8 @@
  */
 package seaportprogram;
 
+import java.util.Scanner;
+
 /**
  *
  * @author SLunsford
@@ -12,19 +14,10 @@ package seaportprogram;
 public class PassengerShip extends Ship {
     int numberOfOccupiedRooms, numberOfPassengers, numberOfRooms;
     
-    public PassengerShip(String shipName, int shipIndex, int shipParent, 
-            double shipWeight, double shipLength, double shipWidth, 
-            double shipDraft, int shipPassengers, int shipRooms, 
-            int shipOccupied){
-        name = shipName;
-        index = shipIndex;
-        parent = shipParent;
-        weight = shipWeight;
-        length = shipLength;
-        width = shipWidth;
-        draft = shipDraft;
-        numberOfPassengers = shipPassengers;
-        numberOfRooms = shipRooms;
-        numberOfOccupiedRooms = shipOccupied;
+    public PassengerShip(Scanner sc) {
+        super (sc);
+        if (sc.hasNextInt()) numberOfPassengers = sc.nextInt();
+        if (sc.hasNextInt()) numberOfRooms = sc.nextInt();
+        if (sc.hasNextInt()) numberOfOccupiedRooms = sc.nextInt();
     }
 }

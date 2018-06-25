@@ -5,6 +5,8 @@
  */
 package seaportprogram;
 
+import java.util.Scanner;
+
 /**
  *
  * @author SLunsford
@@ -12,20 +14,11 @@ package seaportprogram;
 public class CargoShip extends Ship {
     double cargoValue, cargoVolume, cargoWeight;
     
-    public CargoShip(String shipName, int shipIndex, int shipParent, 
-            double shipWeight, double shipLength, double shipWidth, 
-            double shipDraft, double shipCWeight, double shipCVolume, 
-            double shipCValue){
-        name = shipName;
-        index = shipIndex;
-        parent = shipParent;
-        weight = shipWeight;
-        length = shipLength;
-        width = shipWidth;
-        draft = shipDraft;
-        cargoValue = shipCValue;
-        cargoVolume = shipCVolume;
-        cargoWeight = shipCWeight;
+    public CargoShip(Scanner sc){
+        super(sc);
+        if(sc.hasNextDouble()) cargoWeight = sc.nextDouble();
+        if(sc.hasNextDouble()) cargoVolume = sc.nextDouble();
+        if(sc.hasNextDouble()) cargoValue = sc.nextDouble();
     }
     
 }

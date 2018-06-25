@@ -6,6 +6,7 @@
 package seaportprogram;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -17,20 +18,13 @@ public class Ship extends Thing {
     double draft, length, weight, width;
     ArrayList<Job> jobs;
     
-    public Ship(){
-        
-    }
     
-    public Ship(String shipName, int shipIndex, int shipParent, 
-            double shipWeight, double shipLength, double shipWidth, 
-            double shipDraft){
-        name = shipName;
-        index = shipIndex;
-        parent = shipParent;
-        weight = shipWeight;
-        length = shipLength;
-        width = shipWidth;
-        draft = shipDraft;
+    public Ship(Scanner sc){
+    super(sc);
+    if (sc.hasNextDouble()) weight = sc.nextDouble();
+    if (sc.hasNextDouble()) length = sc.nextDouble();
+    if (sc.hasNextDouble()) width = sc.nextDouble();
+    if (sc.hasNextDouble()) draft = sc.nextDouble();
     }
     
     
