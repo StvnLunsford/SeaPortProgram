@@ -21,7 +21,11 @@ public class SeaPort extends Thing {
     ArrayList<Person> persons;
     
     public SeaPort(Scanner sc){
-        super(sc);   
+        super(sc);
+    }
+    
+    public ArrayList<Dock> getDocks(){
+        return docks;
     }
     
     public String toString(SeaPort port){

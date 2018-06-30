@@ -7,7 +7,6 @@ package seaportprogram;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,36 +18,51 @@ public class World extends Thing {
     ArrayList<SeaPort> ports;
     PortTime time = new PortTime();
     
-    public static void parseFile(File inputFile) throws FileNotFoundException{
-        World newWorld = new World();
-        String line;
-        Scanner input = new Scanner(inputFile);
-        while(input.hasNext()){
-            switch (input.next()){
-                case "port":
-                    line = input.nextLine();
-                    System.out.println(line);
-                    Scanner lineInput = new Scanner(line);
-                    System.out.println("This is a test port");
-                    newWorld.ports.add(new SeaPort(lineInput));
-                    break;
-                case "dock":
-                    System.out.println("This is a test dock");
-                    line = input.nextLine();
-                Dock dock = new Dock(input);
-                    break;
-                case "ship":
-                    line = input.nextLine();
-                    new Ship(input);
-                case "cship":
-   
-                case "pship":
-
-                case "person":
-                    
-                case "job":
-                    
-            }
+    
+    
+    public void assignPort(SeaPort port){
+        ports.add(port);
+    }
+    
+    public void assignDock(Dock dock, SeaPort port){
+        port.getDocks().add(dock);
+    }
+    
+    public void assignShip(Ship ship){
+        Dock dock = getDockByIndex(ship.parent);
+        if (dock == null){
+            getSeaPortByIndex(dock.parent).ships.add(ship);
+            getSeaPortByIndex(dock.parent).que.add(ship);
+            return;
         }
+        dock.ship = ship;
+        getSeaPortByIndex(dock.parent).ships.add(ship);
+    }
+    
+    public void assignPerson(Person person, SeaPort port){ 
+        getSeaPortByIndex(person.parent).persons.add(person);
+    }
+    
+    public Ship getShipByIndex(int x){
+        for (SeaPort port: ports)
+            for (Ship ship: port.ships)
+                if (ship.index == x)
+                    return ship;
+        return null;         
+    }
+        
+    public Dock getDockByIndex(int x){
+        for (SeaPort port: ports)
+            for (Dock dock: port.docks)
+            if (dock.index == x)
+                return dock;
+        return null;
+    }
+    
+    public SeaPort getSeaPortByIndex(int x){
+        for (SeaPort port: ports)
+            if (port.index == x)
+                return port;
+        return null;
     }
 }

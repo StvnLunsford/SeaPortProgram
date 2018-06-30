@@ -27,5 +27,9 @@ public class Ship extends Thing {
     if (sc.hasNextDouble()) draft = sc.nextDouble();
     }
     
+    public void assignShip(Ship ship){
+        
+    }
+    
     
 }
