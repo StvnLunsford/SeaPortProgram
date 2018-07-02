@@ -20,4 +20,11 @@ public class PassengerShip extends Ship {
         if (sc.hasNextInt()) numberOfRooms = sc.nextInt();
         if (sc.hasNextInt()) numberOfOccupiedRooms = sc.nextInt();
     }
+
+public String toString(){
+        String st = "Ship: " + super.toString();
+        return st;
+    }
 }
+
+

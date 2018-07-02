@@ -20,16 +20,16 @@ public class Ship extends Thing {
     
     
     public Ship(Scanner sc){
-    super(sc);
-    if (sc.hasNextDouble()) weight = sc.nextDouble();
-    if (sc.hasNextDouble()) length = sc.nextDouble();
-    if (sc.hasNextDouble()) width = sc.nextDouble();
-    if (sc.hasNextDouble()) draft = sc.nextDouble();
+        super(sc);
+        if (sc.hasNextDouble()) weight = sc.nextDouble();
+        if (sc.hasNextDouble()) length = sc.nextDouble();
+        if (sc.hasNextDouble()) width = sc.nextDouble();
+        if (sc.hasNextDouble()) draft = sc.nextDouble();
+        jobs = new ArrayList<>();
     }
-    
-    public void assignShip(Ship ship){
-        
+       
+    public String toString(){
+        String st = "Ship: " + super.toString();
+        return st;
     }
-    
-    
 }

@@ -13,8 +13,6 @@ import java.util.Scanner;
  * @author SLunsford
  */
 public class SeaPort extends Thing {
-    String name;
-    int index, parent;
     ArrayList<Dock> docks;
     ArrayList<Ship> que;
     ArrayList<Ship> ships;
@@ -22,19 +20,15 @@ public class SeaPort extends Thing {
     
     public SeaPort(Scanner sc){
         super(sc);
+        docks = new ArrayList<>();
+        que = new ArrayList<>();
+        ships = new ArrayList<>();
+        persons = new ArrayList<>();
     }
     
-    public ArrayList<Dock> getDocks(){
-        return docks;
-    }
-    
-    public String toString(SeaPort port){
-        StringBuilder sb = new StringBuilder();
-        sb.append(name + " ");
-        sb.append(index + " ");
-        sb.append(parent);
-        String result = sb.toString();
-        return result;
+    public String toString(){
+        String st = super.toString();
+        return st;
     }
     
 }

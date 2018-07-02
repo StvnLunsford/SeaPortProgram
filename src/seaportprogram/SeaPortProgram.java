@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * @Author Steven Lusnford
+ * This program reads a file from the local PC and uses it to populate
+ * a text area with a Sea Port structure.
  */
 package seaportprogram;
 
@@ -17,6 +17,8 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -24,12 +26,14 @@ import javax.swing.JPanel;
  */
 public class SeaPortProgram extends JFrame{
     World world;
+    String newText = null;
     
-    
+    //creates the GUI and runs the file parser
     private void runGUI(){
-        
         JFrame frame = new JFrame("Sea Port");
-        frame.setSize(400,250);
+        JTextArea textArea = new JTextArea(newText,10,50);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        frame.setSize(600,300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         JPanel panel = new JPanel();
@@ -44,6 +48,7 @@ public class SeaPortProgram extends JFrame{
                     File file = fc.getSelectedFile();
                     try {
                         parseFile(file);
+                        textArea.append(newText);
                     } catch (FileNotFoundException ex) {
                         Logger.getLogger(SeaPortProgram.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -51,30 +56,30 @@ public class SeaPortProgram extends JFrame{
             }   
     });
         panel.add(btnChooseFile);
+        panel.add(scrollPane, BorderLayout.CENTER);
 
         frame.getContentPane().add(panel, BorderLayout.CENTER);
         frame.setVisible(true);
     }
     
+    //parses the file that is selected using a switch block
     public void parseFile(File inputFile) throws FileNotFoundException{
-        World world = new World();
-        world.ports = new ArrayList<>();
         Scanner input = new Scanner(inputFile);
+        world = new World(input);
+        SeaPort newport;
         while (input.hasNextLine()){
             if(! input.hasNext()) continue;
             switch (input.next()){
                 case "port":
-                    System.out.println("This is a test port");
                     SeaPort port = new SeaPort(input);
                     world.ports.add(port);
                     break;
                 case "dock":
-                    System.out.println("This is a test dock");
                     Dock dock = new Dock(input);
-                    world.assignDock(dock, world.getSeaPortByIndex(dock.parent));
+                    newport = world.getSeaPortByIndex(dock.parent);
+                    world.assignDock(dock, newport);
                     break;
                 case "ship":
-                    System.out.println("This is a test dock");
                     Ship ship = new Ship(input);
                     world.assignShip(ship);
                     break;
@@ -87,11 +92,18 @@ public class SeaPortProgram extends JFrame{
                     world.assignShip(pship);
                     break;
                 case "person":
-                    
+                    Person person = new Person(input);
+                    newport = world.getSeaPortByIndex(person.parent);
+                    world.assignPerson(person, newport);
+                    break;
                 case "job":
                     
+                    break;
+                    
             }
+            
         }
+        newText = world.toString();
     }
     
     

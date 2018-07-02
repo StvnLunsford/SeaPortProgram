@@ -6,6 +6,7 @@
 package seaportprogram;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -15,4 +16,14 @@ public class Job extends Thing {
     double duration;
     ArrayList<String> requirements;
     
+    
+    public Job(Scanner sc){
+        super(sc);
+        if (sc.hasNextDouble()) duration = sc.nextDouble();
+    }
+    
+    public String toString(){
+        String st = "Job: " + super.toString();
+        return st;
+    }
 }

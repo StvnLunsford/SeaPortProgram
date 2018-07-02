@@ -17,26 +17,30 @@ import java.util.Scanner;
 public class World extends Thing {
     ArrayList<SeaPort> ports;
     PortTime time = new PortTime();
+    SeaPort workingPort;
     
     
+    public World(Scanner sc) {
+        super(sc);
+        ports = new ArrayList<>();
+    }
     
     public void assignPort(SeaPort port){
         ports.add(port);
     }
     
     public void assignDock(Dock dock, SeaPort port){
-        port.getDocks().add(dock);
+        port.docks.add(dock);
     }
     
     public void assignShip(Ship ship){
         Dock dock = getDockByIndex(ship.parent);
-        if (dock == null){
-            getSeaPortByIndex(dock.parent).ships.add(ship);
-            getSeaPortByIndex(dock.parent).que.add(ship);
-            return;
-        }
-        dock.ship = ship;
-        getSeaPortByIndex(dock.parent).ships.add(ship);
+        if (dock != null){
+            workingPort = getSeaPortByIndex(dock.parent);
+            workingPort.ships.add(ship);
+            workingPort.que.add(ship);
+            dock.setShip(ship);
+        }      
     }
     
     public void assignPerson(Person person, SeaPort port){ 
@@ -60,9 +64,26 @@ public class World extends Thing {
     }
     
     public SeaPort getSeaPortByIndex(int x){
-        for (SeaPort port: ports)
-            if (port.index == x)
-                return port;
-        return null;
+        int y;
+        for (SeaPort msp: ports){ 
+            y = msp.index;
+            if (y == x)    
+            return msp;
+        }
+        return null;      
+    }
+    
+    public String toString () {
+      String st = "\n\nSeaPort: " + super.toString();
+      for (SeaPort port: ports){
+      for (Dock dock: port.docks) st += "\n" + dock;
+      st += "\n\n --- List of all ships in que:";
+      for (Ship ship: port.que ) st += "\n   > " + ship;
+      st += "\n\n --- List of all ships:";
+      for (Ship ship: port.ships) st += "\n   > " + ship;
+      st += "\n\n --- List of all persons:";
+      for (Person person: port.persons) st += "\n   > " + person;
+      }
+      return st;
     }
 }

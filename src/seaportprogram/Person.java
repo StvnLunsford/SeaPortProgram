@@ -5,6 +5,9 @@
  */
 package seaportprogram;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 /**
  *
  * @author SLunsford
@@ -12,4 +15,14 @@ package seaportprogram;
 public class Person extends Thing {
     String skill;
     
+    
+    public Person(Scanner sc){
+        super(sc);
+        if (sc.hasNext()) skill = sc.next();
+    }
+    
+    public String toString(){
+        String st = "Person: " + super.toString();
+        return st;
+    }
 }

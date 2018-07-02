@@ -15,17 +15,16 @@ public class Dock extends Thing {
     Ship ship;
     
     public Dock(Scanner sc){
-        super(sc);   
+        super(sc);
     }
     
-    public String toString(Dock dock){
-        StringBuilder sb = new StringBuilder();
-        sb.append(name + " ");
-        sb.append(index + " ");
-        sb.append(parent);
-        String result = sb.toString();
-        return result;
+    public String toString(){
+        String st = "Dock: " + super.toString();
+        return st;
     }
+
+    public void setShip(Ship newShip){
+        ship = newShip;
     
-    
+    }
 }
