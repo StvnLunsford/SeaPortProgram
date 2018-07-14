@@ -63,6 +63,16 @@ public class World extends Thing {
         return portMap.get(x);
     }
     
+    public ArrayList<Thing> searchName(String name){
+        ArrayList<Thing> searchResults = new ArrayList<>();
+        for (SeaPort port : ports) {
+            if (port.name.equalsIgnoreCase(name)){
+                searchResults.add(port);
+            }
+        }
+        return searchResults;
+    }
+    
     public String toString () {
       String st = "\n\nSeaPort: " + super.toString();
       for (SeaPort port: ports){
