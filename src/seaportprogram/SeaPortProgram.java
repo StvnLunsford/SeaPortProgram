@@ -48,7 +48,6 @@ public class SeaPortProgram{
         btnChooseFile.addActionListener((ActionEvent e) -> {
             if (e.getSource() == btnChooseFile) {
                 if(fc.showOpenDialog(panel)==JFileChooser.APPROVE_OPTION){
-                    int returnVal = fc.showOpenDialog(panel);
                     File file = fc.getSelectedFile();
                     try {
                         parseFile(file);
