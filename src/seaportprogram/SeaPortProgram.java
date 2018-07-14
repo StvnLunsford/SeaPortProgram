@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,9 +25,10 @@ import javax.swing.JTextArea;
  *
  * @author SLunsford
  */
-public class SeaPortProgram extends JFrame{
+public class SeaPortProgram{
     World world;
     String newText = null;
+    HashMap<Integer,Thing> mainMap;
     
     //creates the GUI and runs the file parser
     private void runGUI(){
@@ -41,6 +43,8 @@ public class SeaPortProgram extends JFrame{
         fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
         JButton btnChooseFile = new JButton("Choose File");
+        JButton btnSearchFile = new JButton("Search File");
+        btnSearchFile.setEnabled(false);
         btnChooseFile.addActionListener((ActionEvent e) -> {
             if (e.getSource() == btnChooseFile) {
                 if(fc.showOpenDialog(panel)==JFileChooser.APPROVE_OPTION){
@@ -49,6 +53,7 @@ public class SeaPortProgram extends JFrame{
                     try {
                         parseFile(file);
                         textArea.append(newText);
+                        btnSearchFile.setEnabled(true);
                     } catch (FileNotFoundException ex) {
                         Logger.getLogger(SeaPortProgram.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -56,6 +61,7 @@ public class SeaPortProgram extends JFrame{
             }   
     });
         panel.add(btnChooseFile);
+        panel.add(btnSearchFile);
         panel.add(scrollPane, BorderLayout.CENTER);
 
         frame.getContentPane().add(panel, BorderLayout.CENTER);
@@ -67,37 +73,52 @@ public class SeaPortProgram extends JFrame{
         Scanner input = new Scanner(inputFile);
         world = new World(input);
         SeaPort newport;
+        String line;
+        HashMap<Integer, SeaPort> portMap = new HashMap<>();
+        HashMap<Integer, Dock> dockMap = new HashMap<>();
+        HashMap<Integer, Ship> shipMap = new HashMap<>();
+        
         while (input.hasNextLine()){
-            if(! input.hasNext()) continue;
-            switch (input.next()){
+            line = input.nextLine();
+        if (line.isEmpty()) continue;
+        Scanner lineScan = new Scanner(line);
+            if(!lineScan.hasNext()) return;
+            switch (lineScan.next()){
                 case "port":
-                    SeaPort port = new SeaPort(input);
+                    SeaPort port = new SeaPort(lineScan);
+                    portMap.put(port.index, port);
                     world.ports.add(port);
                     break;
                 case "dock":
-                    Dock dock = new Dock(input);
-                    newport = world.getSeaPortByIndex(dock.parent);
+                    Dock dock = new Dock(lineScan);
+                    newport = world.getSeaPortByIndex(dock.parent, portMap);
+                    dockMap.put(dock.index, dock);
                     world.assignDock(dock, newport);
                     break;
                 case "ship":
-                    Ship ship = new Ship(input);
-                    world.assignShip(ship);
+                    Ship ship = new Ship(lineScan);
+                    shipMap.put(ship.index, ship);
+                    world.assignShip(ship, portMap);
                     break;
                 case "cship":
-                    CargoShip cship = new CargoShip(input);
-                    world.assignShip(cship);
+                    CargoShip cship = new CargoShip(lineScan);
+                    shipMap.put(cship.index, cship);
+                    world.assignShip(cship, portMap);
                     break;
                 case "pship":
-                    PassengerShip pship = new PassengerShip(input);
-                    world.assignShip(pship);
+                    PassengerShip pship = new PassengerShip(lineScan);
+                    shipMap.put(pship.index, pship);
+                    world.assignShip(pship, portMap);
                     break;
                 case "person":
-                    Person person = new Person(input);
-                    newport = world.getSeaPortByIndex(person.parent);
-                    world.assignPerson(person, newport);
+                    Person person = new Person(lineScan);
+                    newport = world.getSeaPortByIndex(person.parent, portMap);
+                    world.assignPerson(person, newport, portMap);
                     break;
                 case "job":
                     
+                    break;
+                default:
                     break;
                     
             }

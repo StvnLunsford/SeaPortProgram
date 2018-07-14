@@ -33,26 +33,22 @@ public class World extends Thing {
         port.docks.add(dock);
     }
     
-    public void assignShip(Ship ship){
+    public void assignShip(Ship ship, java.util.HashMap<Integer, SeaPort> portMap){
         Dock dock = getDockByIndex(ship.parent);
         if (dock != null){
-            workingPort = getSeaPortByIndex(dock.parent);
+            workingPort = getSeaPortByIndex(dock.parent, portMap);
             workingPort.ships.add(ship);
             workingPort.que.add(ship);
             dock.setShip(ship);
         }      
     }
     
-    public void assignPerson(Person person, SeaPort port){ 
-        getSeaPortByIndex(person.parent).persons.add(person);
+    public void assignPerson(Person person, SeaPort port, java.util.HashMap<Integer, SeaPort> portMap){ 
+        getSeaPortByIndex(person.parent, portMap).persons.add(person);
     }
     
-    public Ship getShipByIndex(int x){
-        for (SeaPort port: ports)
-            for (Ship ship: port.ships)
-                if (ship.index == x)
-                    return ship;
-        return null;         
+    public Ship getShipByIndex(int x, java.util.HashMap<Integer, Ship> shipMap){
+        return shipMap.get(x);         
     }
         
     public Dock getDockByIndex(int x){
@@ -63,14 +59,8 @@ public class World extends Thing {
         return null;
     }
     
-    public SeaPort getSeaPortByIndex(int x){
-        int y;
-        for (SeaPort msp: ports){ 
-            y = msp.index;
-            if (y == x)    
-            return msp;
-        }
-        return null;      
+    public SeaPort getSeaPortByIndex(int x, java.util.HashMap<Integer, SeaPort> portMap){
+        return portMap.get(x);
     }
     
     public String toString () {
