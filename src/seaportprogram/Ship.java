@@ -29,7 +29,7 @@ public class Ship extends Thing {
     }
        
     public String toString(){
-        String st = "Ship: " + super.toString() + " " + draft + " " + length + " " + width + " " + weight;
+        String st = super.toString() + " " + draft + " " + length + " " + width + " " + weight;
         return st;
     }
 }

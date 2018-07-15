@@ -68,6 +68,11 @@ public class World extends Thing {
         for (SeaPort port : ports) {
             if (port.name.equalsIgnoreCase(name)){
                 searchResults.add(port);
+            for (Ship ship : port.ships ) {
+                if (ship.name.equalsIgnoreCase(name)){
+                    searchResults.add(port);
+                }
+            }
             }
         }
         return searchResults;
@@ -76,14 +81,14 @@ public class World extends Thing {
     public String toString () {
       String st = " ";
       for (SeaPort port: ports){
-        st = "\n\nSeaPort: " + port.toString();
+        st += "\n\nSeaPort: " + port.toString();
         for (Dock dock: port.docks) st += "\n" + dock;
             st += "\n\n --- List of all ships in que:";
-      for (Ship ship: port.que ) st += "\n   > " + ship;
-      st += "\n\n --- List of all ships:";
-      for (Ship ship: port.ships) st += "\n   > " + ship;
-      st += "\n\n --- List of all persons:";
-      for (Person person: port.persons) st += "\n   > " + person;
+        for (Ship ship: port.que ) st += "\n   > " + ship;
+            st += "\n\n --- List of all ships:";
+        for (Ship ship: port.ships) st += "\n   > " + ship;
+            st += "\n\n --- List of all persons:";
+        for (Person person: port.persons) st += "\n   > " + person;
       }
       return st;
     }

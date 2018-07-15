@@ -174,17 +174,18 @@ public class SeaPortProgram{
         sortByName(world.ports);
     }
     
+    //method to search the structure based on user-defined criteria
     public void searchFile(String thing, String object){
         ArrayList<Thing> searchResults = new ArrayList<>();
         switch (thing) {
             case "name":
                 searchResults = world.searchName(object);
-                break;
-                
+                break;               
         }
         textArea.append(searchResults.toString());
     }
     
+    //method to sort all items by name
     private void sortByName(ArrayList targetList){
         ArrayList<Thing> sortList = targetList;
         Collections.sort(sortList, new NameComparator());

@@ -7,13 +7,14 @@
 // port   name index parent(null)
 //    port   <string> <int> <int>
 port Lanshan 10000 0
+port Taipei 10001 0
 
 // dock   name index parent(port)
 //    dock   <string> <int> <int>
   dock Pier_4 20004 10000 30004
   dock Pier_0 20000 10000 30000
-  dock Pier_1 20001 10000 30001
-  dock Pier_3 20003 10000 30003
+  dock Pier_1 20001 10001 30001
+  dock Pier_3 20003 10001 30003
   dock Pier_2 20002 10000 30002
 
 // pship  name index parent(dock/port) weight length width draft numPassengers numRooms numOccupied
@@ -26,16 +27,16 @@ port Lanshan 10000 0
 
 // cship  name index parent(dock/port) weight length width draft cargoWeight cargoVolume cargoValue
 //    cship  <string> <int> <int> <double> <double> <double> <double> <double> <double> <double>
-    cship            Erosional 40001 10000 200.80 242.33 38.31 23.49 172.73 188.54 235.57
-    cship            Kielbasas 40000 10000 120.85 362.55 96.82 19.09 33.08 188.31 261.57
-    cship             Generics 40002 10000 79.90 234.26 73.18 15.71 125.27 179.00 729.95
-    cship            Barcelona 40003 10000 219.92 443.54 104.44 34.16 86.69 139.89 813.72
-    cship              Toluene 40004 10000 189.12 448.99 73.97 37.67 88.90 175.03 1002.63
+    cship            Erosional 40001 20002 200.80 242.33 38.31 23.49 172.73 188.54 235.57
+    cship            Kielbasas 40000 20000 120.85 362.55 96.82 19.09 33.08 188.31 261.57
+    cship             Generics 40002 20003 79.90 234.26 73.18 15.71 125.27 179.00 729.95
+    cship            Barcelona 40003 20000 219.92 443.54 104.44 34.16 86.69 139.89 813.72
+    cship              Toluene 40004 20004 189.12 448.99 73.97 37.67 88.90 175.03 1002.63
 
 // person name index parent skill
 //    person <string> <int> <int> <string>
     person                 Sara 50000 10000 electrician
     person                Duane 50002 10000 inspector
-    person                Betsy 50004 10000 cleaner
-    person               Archie 50003 10000 captain
+    person                Betsy 50004 10001 cleaner
+    person               Archie 50003 10001 captain
     person               Thomas 50001 10000 clerk

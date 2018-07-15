@@ -22,7 +22,7 @@ public class CargoShip extends Ship {
     }
     
     public String toString(){
-        String st = "Ship: " + super.toString() + " " + cargoValue + " " + cargoVolume + " " + cargoWeight;
+        String st = "Cargo Ship: " + super.toString() + " " + cargoValue + " " + cargoVolume + " " + cargoWeight;
         return st;
     }
 }
