@@ -19,7 +19,7 @@ public class Dock extends Thing {
     }
     
     public String toString(){
-        String st = "Dock: " + super.toString();
+        String st = "Dock: " + super.toString() + ship.toString();
         return st;
     }
 

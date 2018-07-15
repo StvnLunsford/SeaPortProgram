@@ -22,7 +22,7 @@ public class Person extends Thing {
     }
     
     public String toString(){
-        String st = "Person: " + super.toString();
+        String st = "Person: " + super.toString() + " " + skill;
         return st;
     }
 }

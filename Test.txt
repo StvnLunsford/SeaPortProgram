@@ -1,14 +1,16 @@
 // port   name index parent(null)
 //    port   <string> <int> <int>
 port Lanshan 10000 0
+port Taipei 10001 0
+port Singapore 10002 0
 
 // dock   name index parent(port)
 //    dock   <string> <int> <int>
   dock Pier_4 20004 10000 30004
   dock Pier_0 20000 10000 30000
-  dock Pier_1 20001 10000 30001
-  dock Pier_3 20003 10000 30003
-  dock Pier_2 20002 10000 30002
+  dock Pier_1 20001 10001 30001
+  dock Pier_3 20003 10002 30003
+  dock Pier_2 20002 10001 30002
 
 // pship  name index parent(dock/port) weight length width draft numPassengers numRooms numOccupied
 //    pship  <string> <int> <int> <double> <double> <double> <double> <int> <int> <int>

@@ -21,5 +21,9 @@ public class CargoShip extends Ship {
         if(sc.hasNextDouble()) cargoValue = sc.nextDouble();
     }
     
+    public String toString(){
+        String st = "Ship: " + super.toString() + " " + cargoValue + " " + cargoVolume + " " + cargoWeight;
+        return st;
+    }
 }
     

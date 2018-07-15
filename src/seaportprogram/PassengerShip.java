@@ -22,7 +22,7 @@ public class PassengerShip extends Ship {
     }
 
 public String toString(){
-        String st = "Ship: " + super.toString();
+        String st = "Ship: " + super.toString() + " " + numberOfOccupiedRooms + " " + numberOfPassengers + " " + numberOfRooms;
         return st;
     }
 }

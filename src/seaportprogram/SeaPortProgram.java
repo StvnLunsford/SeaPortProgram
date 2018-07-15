@@ -10,11 +10,13 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -31,6 +33,7 @@ public class SeaPortProgram{
     String newText = null;
     HashMap<Integer,Thing> mainMap;
     JTextArea textArea = new JTextArea(newText,10,50);
+    String[] shipSortBox = {"Weight", "Length", "Width", "Draft"};
     
     //creates the GUI and runs the file parser
     private void runGUI(){
@@ -46,8 +49,13 @@ public class SeaPortProgram{
 
         JButton btnChooseFile = new JButton("Choose File");
         JButton btnSearchFile = new JButton("Search File");
+        JButton btnSortName = new JButton("Sort by Name");
+        JButton btnSortShips = new JButton("Sort Ships by:");
+        JComboBox sortSelection = new JComboBox(shipSortBox);
         JTextField searchField = new JTextField(10);
         btnSearchFile.setEnabled(false);
+        btnSortName.setEnabled(false);
+        btnSortShips.setEnabled(false);
         btnChooseFile.addActionListener((ActionEvent e) -> {
             if (e.getSource() == btnChooseFile) {
                 if(fc.showOpenDialog(panel)==JFileChooser.APPROVE_OPTION){
@@ -56,6 +64,8 @@ public class SeaPortProgram{
                         parseFile(file);
                         textArea.append(newText);
                         btnSearchFile.setEnabled(true);
+                        btnSortName.setEnabled(true);
+                        btnSortShips.setEnabled(true);
                     } catch (FileNotFoundException ex) {
                         Logger.getLogger(SeaPortProgram.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -70,9 +80,34 @@ public class SeaPortProgram{
             }
         });
         
+        btnSortName.addActionListener((ActionEvent e) -> {
+            if (e.getSource() == btnSortName) {
+                sortByName(world.ports);
+                for (SeaPort port : world.ports) {
+                    sortByName(port.docks);
+                    sortByName(port.persons);
+                    sortByName(port.ships);
+            }
+                newText = world.toString();
+                textArea.append(newText);
+            }
+        });
+        
+        btnSortShips.addActionListener((ActionEvent e) -> {
+            if (e.getSource() == btnSortShips) {
+                String selection = (String) sortSelection.getSelectedItem();
+                sortShips(selection);
+            }
+            newText = world.toString();
+            textArea.append(newText);
+        });
+        
         panel.add(btnChooseFile);
         panel.add(btnSearchFile);
         panel.add(searchField);
+        panel.add(btnSortName);
+        panel.add(btnSortShips);
+        panel.add(sortSelection);
         panel.add(scrollPane, BorderLayout.CENTER);
 
         frame.getContentPane().add(panel, BorderLayout.CENTER);
@@ -136,6 +171,7 @@ public class SeaPortProgram{
             
         }
         newText = world.toString();
+        sortByName(world.ports);
     }
     
     public void searchFile(String thing, String object){
@@ -147,6 +183,18 @@ public class SeaPortProgram{
                 
         }
         textArea.append(searchResults.toString());
+    }
+    
+    private void sortByName(ArrayList targetList){
+        ArrayList<Thing> sortList = targetList;
+        Collections.sort(sortList, new NameComparator());
+    }
+    
+    private void sortShips(String selection){
+        for (SeaPort port : world.ports) {
+            ArrayList<Ship> sortList = port.que;
+            Collections.sort(sortList, new ShipComparator(selection));
+        }
     }
     
     

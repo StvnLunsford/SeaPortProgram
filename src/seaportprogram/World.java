@@ -74,10 +74,11 @@ public class World extends Thing {
     }
     
     public String toString () {
-      String st = "\n\nSeaPort: " + super.toString();
+      String st = " ";
       for (SeaPort port: ports){
-      for (Dock dock: port.docks) st += "\n" + dock;
-      st += "\n\n --- List of all ships in que:";
+        st = "\n\nSeaPort: " + port.toString();
+        for (Dock dock: port.docks) st += "\n" + dock;
+            st += "\n\n --- List of all ships in que:";
       for (Ship ship: port.que ) st += "\n   > " + ship;
       st += "\n\n --- List of all ships:";
       for (Ship ship: port.ships) st += "\n   > " + ship;
