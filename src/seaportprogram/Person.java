@@ -14,6 +14,7 @@ import java.util.Scanner;
  */
 public class Person extends Thing {
     String skill;
+    boolean busyFlag = false;
     
     
     public Person(Scanner sc){

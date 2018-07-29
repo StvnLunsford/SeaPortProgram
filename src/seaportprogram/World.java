@@ -37,14 +37,22 @@ public class World extends Thing {
         Dock dock = getDockByIndex(ship.parent);
         if (dock != null){
             workingPort = getSeaPortByIndex(dock.parent, portMap);
-            workingPort.ships.add(ship);
-            workingPort.que.add(ship);
             dock.setShip(ship);
-        }      
+        } else {
+            workingPort = getSeaPortByIndex(ship.parent, portMap);
+            workingPort.que.add(ship);
+        } // end if docked/else
+        workingPort.ships.add(ship);    
     }
+    
+
     
     public void assignPerson(Person person, SeaPort port, java.util.HashMap<Integer, SeaPort> portMap){ 
         getSeaPortByIndex(person.parent, portMap).persons.add(person);
+    }
+    
+    public void assignJob(Job job, java.util.HashMap<Integer, Ship> shipMap){
+        getShipByIndex(job.parent, shipMap).jobs.add(job);
     }
     
     public Ship getShipByIndex(int x, java.util.HashMap<Integer, Ship> shipMap){
@@ -61,6 +69,10 @@ public class World extends Thing {
     
     public SeaPort getSeaPortByIndex(int x, java.util.HashMap<Integer, SeaPort> portMap){
         return portMap.get(x);
+    }
+    
+    public Person getPersonByIndex(int x, java.util.HashMap<Integer, Person> personMap){
+        return personMap.get(x);
     }
     
     public ArrayList<Thing> searchName(String name){
@@ -84,11 +96,21 @@ public class World extends Thing {
         st += "\n\nSeaPort: " + port.toString();
         for (Dock dock: port.docks) st += "\n" + dock;
             st += "\n\n --- List of all ships in que:";
-        for (Ship ship: port.que ) st += "\n   > " + ship;
+        for (Ship ship: port.que ) { st += "\n   > " + ship;
+            st += "\n\n --- List of all jobs on ship";
+            for (Job job: ship.jobs) st += "\n > " + job;
+            st += "\n\n";
+        }
             st += "\n\n --- List of all ships:";
-        for (Ship ship: port.ships) st += "\n   > " + ship;
+        for (Ship ship: port.ships) { st += "\n   > " + ship;
+            st += "\n\n --- List of all jobs on ship";
+            for (Job job: ship.jobs) st += "\n > " + job;
+            st += "\n\n";
+        }
             st += "\n\n --- List of all persons:";
         for (Person person: port.persons) st += "\n   > " + person;
+            
+        
       }
       return st;
     }
